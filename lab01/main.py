@@ -1,16 +1,63 @@
-# This is a sample Python script.
+class Node:
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+    def __init__(self, x):
+        self.x = x
+        self.next = None
+        self.prev = None
 
 
-# Press the green button in the gutter to run the script.
+class Lista:
+
+    def __init__(self):
+        self.init = None
+        self.tail = None
+
+    def append(self, node):
+        """
+        Método para inserir um elemento no final
+        :param node:
+        :return:
+        """
+        if self.init is None:
+            self.init = node
+            self.tail = node
+            return
+
+        self.tail.next = node
+        node.prev = self.tail
+        self.tail = node
+
+
+    def add(self, node):
+        """
+        Inserir um elemento sempre no inicio da lista
+        :param node:
+        :return:
+        """
+        if self.init is None:
+            self.init = node
+            self.tail = node
+            return
+
+        self.init.prev = node
+        node.next = self.init
+        self.init = node
+
+    def __str__(self):
+        str_aux = '['
+        node_aux = self.init
+        while(node_aux is not None):
+            str_aux += str(node_aux.x) + ','
+            node_aux = node_aux.next
+        str_aux += ']'
+        return str_aux
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    lista = Lista()
+    lista.add(Node(x=27))
+    lista.add(Node(x=1))
+    print(lista)
+    lista.append(Node(x=5))
+    lista.append(Node(x=19))
+    print(lista)
